@@ -88,7 +88,7 @@ const addEmployee = () => {
         }
     ])
     .then(res => {
-        db.query('INSERT INTO employee SET ?'),
+        db.query('INSERT INTO employee SET ?',
         {
             first_name: res.firstName,
             last_name: res.lastName,
@@ -98,15 +98,15 @@ const addEmployee = () => {
         (err, res) => {
             console.log('Employee has been added!');
             promptUser();
-        }
+        })
     })
 };
 
 const updateEmployeeRole = () => {
-    db.query('SELECT CONCAT(employee.first_name, " ", employee.last_name) AS employeeName FROM employees;',
+    db.query('SELECT CONCAT(employee.first_name, " ", employee.last_name) AS employeeName FROM employee;',
     function (err, results) {
         for (let i = 0; i < results.length; i++) {
-            let name = res[i].employeeName;
+            let name = results[i].employeeName;
             employeeNames.push(name);
         }
         inquirer
@@ -120,7 +120,7 @@ const updateEmployeeRole = () => {
         ])
         .then((res) => {
             let newEmp = res.employeeSelection;
-            db.query('SELECT role_tbl.title AS roleTITLE from role_tbl',
+            db.query('SELECT role_tbl.title AS roleTitle from role_tbl',
             function(err, results) {
                 for (let i = 0; i < results.length; i++) {
                 let role = results[i].roleTitle;
@@ -180,7 +180,7 @@ const addRole = () => {
         }
     ])
     .then(res => {
-        db.query('INSERT INTO role_tbl SET ?'),
+        db.query('INSERT INTO role_tbl SET ?',
         {
             title: res.role,
             salary: res.salary,
@@ -189,7 +189,7 @@ const addRole = () => {
         (err, res) => {
             console.log('Role has been added!');
             promptUser();
-        }
+        })
     })
 };
 
@@ -210,13 +210,13 @@ const addDepartment = () => {
         }
     ])
     .then(res => {
-        db.query('INSERT INTO department SET ?'),
+        db.query('INSERT INTO department SET ?',
         {
             d_name: res.department
         },
         (err, res) => {
             console.log('Department has been added!');
             promptUser();
-        }
+        })
     })
 };
